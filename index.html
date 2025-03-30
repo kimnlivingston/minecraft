@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Minecraft Archipelago Achievements</title>
+
+    <!-- Bootstrap 5.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+    <!-- jQuery 3.7.1 -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <!-- Font Awesome 6.60-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Confetti https://confetti.js.org/more.html -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script> -->
+
+    <style type="text/css">
+
+        .form-check-input[type=checkbox] {
+            border-color: blue;
+        }
+        .form-check-input:checked {
+            background-color: grey;
+            border-color: grey;
+        }
+        .form-check-input:checked~.form-check-label {
+            color: grey;
+            text-decoration: line-through;
+        }
+    </style>
+
+</head>
+
+<body class="d-flex flex-column min-vh-100"> <!-- classes are for moving the footer to the bottom -->
+
+    <div class="server-status"></div>
+    <div class="server-online"></div>
+
+    <header class="mb-3">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+            <div class="container-fluid">
+                <span class="navbar-brand mb-0 h1">Minecraft Archipelago</span>
+                <button class="navbar-toggler border-0 p-1" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" target="_blank"
+                                href="https://docs.google.com/document/d/1I5bC_RqIO9088wCPP1VPyCKpXLKqRpoGmA61ykqNhR0/edit?usp=sharing">Chris's
+                                Google Doc</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" target="_blank" href="https://archipelago.gg/">Archipelago.gg</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" target="_blank" href="https://getbootstrap.com/docs/5.3/getting-started/introduction/">Bootstrap 5.3</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mt-3 mb-5 px-4 flex-grow-1"> <!-- flex-grow-1 makes the footer on the bottom -->
+
+        <div class="row">
+            <div class="col-1">
+                <p>To-Do:</p>
+            </div>
+            <div class="col-11">
+                <p>create a JSON for the fieldsets and pull them in that way
+                    <br>make confetti when you complete them all
+                    <br>move the fieldset to the bottom when complete
+                    <br>make notes area save to localStorage
+                </p>
+            </div>
+        </div>
+
+        <div class="d-flex gap-3 mb-4 align-items-stretch">
+            <h1 class="flex-grow-1 mb-0">
+                Achievements
+                <span id="total_achievement_count" class="badge text-bg-light fw-normal"></span>
+            </h1>
+            <button type="button" class="btn btn-danger" id="achievements_form_reset" title="Reset"><i
+                    class="fa-regular fa-trash-can"></i></button>
+        </div>
+
+
+        <form id="achievements_form" class="d-flex flex-column flex-md-row flex-md-wrap gap-3">
+
+            <!-- <div class="form-floating col-12">
+                <textarea class="form-control" id="notes" style="height: 100px"></textarea>
+                <label for="notes">Notes</label>
+            </div> -->
+
+            <fieldset class="text-bg-light rounded-3 p-3">
+                <legend>Gather</legend>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="get_wood" />
+                    <label class="form-check-label" for="get_wood">Get Wood</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="get_cobblestone" />
+                    <label class="form-check-label" for="get_cobblestone">Get Cobblestone</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="catch_fish" />
+                    <label class="form-check-label" for="catch_fish">Catch Fish</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="catch_fish_with_bucket" />
+                    <label class="form-check-label" for="catch_fish_with_bucket">Catch Fish with Bucket</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="lava_bucket" />
+                    <label class="form-check-label" for="lava_bucket">Fill Bucket with Lava</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="iron_ingot" />
+                    <label class="form-check-label" for="iron_ingot">Iron Ingot</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="obsidian" />
+                    <label class="form-check-label" for="obsidian">Obsidian</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="crying_obsidian" />
+                    <label class="form-check-label" for="crying_obsidian">Crying Obsidian</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="diamond" />
+                    <label class="form-check-label" for="diamond">Diamond</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="ancient_debris" />
+                    <label class="form-check-label" for="ancient_debris">Ancient Debris</label>
+                </div>
+            </fieldset>
+
+            <fieldset class="text-bg-light rounded-3 p-3">
+                <legend>Craft</legend>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="crafting_table" />
+                    <label class="form-check-label" for="crafting_table">Crafting Table</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="furnace" />
+                    <label class="form-check-label" for="furnace">Furnace</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="make_bread" />
+                    <label class="form-check-label" for="make_bread">Make Bread</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="make_cake" />
+                    <label class="form-check-label" for="make_cake">Eat Cake</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="build_bookcase" />
+                    <label class="form-check-label" for="build_bookcase">Build a Bookcase</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="enchant" />
+                    <label class="form-check-label" for="enchant">Enchant something</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="wood_sword" />
+                    <label class="form-check-label" for="wood_sword">Wood Sword</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="wood_pickaxe" />
+                    <label class="form-check-label" for="wood_pickaxe">Wood Pickaxe</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="stone_pickaxe" />
+                    <label class="form-check-label" for="stone_pickaxe">Stone Pickaxe</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="iron_pickaxe" />
+                    <label class="form-check-label" for="iron_pickaxe">Iron Pickaxe</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="iron_armor" />
+                    <label class="form-check-label" for="iron_armor">Iron Armor</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="diamond_armor" />
+                    <label class="form-check-label" for="diamond_armor">Diamond Armor</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="potion" />
+                    <label class="form-check-label" for="potion">Make or Pick-up Potion</label>
+                </div>
+            </fieldset>
+
+            <fieldset class="text-bg-light rounded-3 p-3">
+                <legend>Fight</legend>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="kill_enemy" />
+                    <label class="form-check-label" for="kill_enemy">Kill an Enemy</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="kill_creature" />
+                    <label class="form-check-label" for="kill_creature">Kill or be killed by any
+                        creature</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="kill_far_away_skeleton" />
+                    <label class="form-check-label" for="kill_far_away_skeleton">Kill a skeleton from FAR</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="fire_crossbow" />
+                    <label class="form-check-label" for="fire_crossbow">Fire Crossbow</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="shoot_arrow" />
+                    <label class="form-check-label" for="shoot_arrow">Shoot something with an arrow</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="trident_mob" />
+                    <label class="form-check-label" for="trident_mob">Hit a mob with a trident</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="shield_arrow" />
+                    <label class="form-check-label" for="shield_arrow">Deflect arrow with shield</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="shoot_bullseye" />
+                    <label class="form-check-label" for="shoot_bullseye">Shoot a target block bullseye from far</label>
+                </div>
+            </fieldset>
+
+            <fieldset class="text-bg-light rounded-3 p-3">
+                <legend>Farm</legend>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="plant_seed" />
+                    <label class="form-check-label" for="plant_seed">Plant a Seed</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="eat_food" />
+                    <label class="form-check-label" for="eat_food">Eat Food</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="breed_animal" />
+                    <label class="form-check-label" for="breed_animal">Breed Two Animals</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="kill_cow" />
+                    <label class="form-check-label" for="kill_cow">Get Leather from Killing a Cow</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="tame_animal" />
+                    <label class="form-check-label" for="tame_animal">Tame an Animal</label>
+                </div>
+            </fieldset>
+
+            <fieldset class="text-bg-light rounded-3 p-3">
+                <legend>Bees</legend>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="collect_honey" />
+                    <label class="form-check-label" for="collect_honey">Collect honey with campfire</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="silk_touch_beehive" />
+                    <label class="form-check-label" for="silk_touch_beehive">Silk touch move beehive with 3 bees</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="slow_fall_honey" />
+                    <label class="form-check-label" for="slow_fall_honey">Slow fall with honey block</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="honeycomb_on" />
+                    <label class="form-check-label" for="honeycomb_on">Honeycomb on copper block</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="honeycomb_off" />
+                    <label class="form-check-label" for="honeycomb_off">Honeycomb off copper block with ax</label>
+                </div>
+            </fieldset> 
+
+            <fieldset class="text-bg-light rounded-3 p-3">
+                <legend>Pillager Outpost</legend>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="kill_bannerman" />
+                    <label class="form-check-label" for="kill_bannerman">Kill Pillager bannerman</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="kill_pillager_crossbow" />
+                    <label class="form-check-label" for="kill_pillager_crossbow">Kill pillager with crossbow</label>
+                </div>
+            </fieldset>
+            
+            <fieldset class="text-bg-light rounded-3 p-3">
+                <legend>Bastion Remnant</legend>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="enter_bastion_remnant" />
+                    <label class="form-check-label" for="enter_bastion_remnant">Enter bastion remnant</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="loot_bastion_remnant" />
+                    <label class="form-check-label" for="loot_bastion_remnant">Loot bastion remnant</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="distract_piglin" />
+                    <label class="form-check-label" for="distract_piglin">Distract piglin with gold</label>
+                </div>
+            </fieldset>
+
+            <fieldset class="text-bg-light rounded-3 p-3">
+                <legend>End City</legend>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="enter_end_city" />
+                    <label class="form-check-label" for="enter_end_city">Enter end city</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="find_elytra" />
+                    <label class="form-check-label" for="find_elytra">Find elytra</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="float_50_blocks" />
+                    <label class="form-check-label" for="float_50_blocks">Float up 50 blocks</label>
+                </div>
+            </fieldset>
+
+            <fieldset class="text-bg-light rounded-3 p-3">
+                <legend>Nether Fortress</legend>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="enter_fortress" />
+                    <label class="form-check-label" for="enter_fortress">Enter nether fortress</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="wither_skull" />
+                    <label class="form-check-label" for="wither_skull">Get wither skeleton skull</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="blaze_rod" />
+                    <label class="form-check-label" for="blaze_rod">Get blaze rod</label>
+                </div>
+            </fieldset>
+            
+            <fieldset class="text-bg-light rounded-3 p-3">
+                <legend>Nether</legend>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="light_portal" />
+                    <label class="form-check-label" for="light_portal">Light a nether portal</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="enter_nether" />
+                    <label class="form-check-label" for="enter_nether">Enter nether</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="kill_ghast" />
+                    <label class="form-check-label" for="kill_ghast">Kill a Ghast with its own charge </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="spawn_wither" />
+                    <label class="form-check-label" for="spawn_wither">Spawn a Wither</label>
+                </div>
+            </fieldset>
+            
+            <fieldset class="text-bg-light rounded-3 p-3">
+                <legend>Village</legend>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="trade_villager" />
+                    <label class="form-check-label" for="trade_villager">Trade with a villager</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="iron_golem" />
+                    <label class="form-check-label" for="iron_golem">Iron golem in village</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="cure_villager" />
+                    <label class="form-check-label" for="cure_villager">Cure a zombie villager</label>
+                </div>
+            </fieldset>
+
+            
+            <fieldset class="text-bg-light rounded-3 p-3">
+                <legend>Etc</legend>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="minecart" />
+                    <label class="form-check-label" for="minecart">Ride a minecart</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="sign_glow" />
+                    <label class="form-check-label" for="sign_glow">Sign text glow</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="boat_goat" />
+                    <label class="form-check-label" for="boat_goat">Boat goat</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="boots_snow" />
+                    <label class="form-check-label" for="boots_snow">Leather boots in powder snow</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="sleep" />
+                    <label class="form-check-label" for="sleep">Sleep</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="pig_saddle" />
+                    <label class="form-check-label" for="pig_saddle">Pig fall damage on saddle</label>
+                </div>
+            </fieldset>
+            
+            <!-- 
+            <fieldset class="text-bg-light rounded-3 p-3">
+                <legend></legend>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="" />
+                    <label class="form-check-label" for=""></label>
+                </div>
+            </fieldset> 
+            -->
+
+        </form>
+
+    </main>
+
+    <footer class="container-fluid text-bg-dark pt-3">
+        <p class="text-end">@2024 Kim Livingston and Chris Kobol</p>
+    </footer>
+
+    <script type="text/javascript">
+
+        /* Checks against local storage to check checkbox */
+        $("input").each(function () {
+            let key = $(this).attr('id');
+            let value = localStorage.getItem(key);
+            if (value == "checked") {
+                $(this).prop("checked", true);
+            }
+        });
+
+        /* Count total Number of Achievements */
+        $('#total_achievement_count').html(
+            updateTotalCount($(this))
+        );
+
+        $("fieldset").addClass("flex-fill");
+
+        /* Counts number of inputs in a fieldset */
+        $("fieldset").each(function () {
+            $('legend', $(this)).append("<span class='section-count float-end'>" + updateFieldsetCount($(this))+ "</span>");
+        });
+
+        /* Calculates checked inputs versus total inputs */
+        function updateTotalCount() {
+            let checkedCountTotal = $('input:checked').length;
+            let inputCountTotal = $('input').length;
+            return (
+                checkedCountTotal
+                + "/" +
+                inputCountTotal
+            );
+        };
+
+        /* Takes in a fieldset and returns the number of unchecked checkboxes */
+        function updateFieldsetCount(e) {
+            let inputCount = $('input', e).length;
+            let checkedCount = $('input:checked', e).length;
+            if ((inputCount - checkedCount) == 0) {
+                e.addClass('order-1');
+                return "<i class='fa-solid fa-check text-success'></i>";
+            } else {
+                e.removeClass('order-1');
+                return inputCount - checkedCount;
+            }
+        };
+
+        // Adds and removes checkbox checked to Local Storage
+        $("input").on("click", function () {
+            let key = $(this).attr('id');
+            let value = localStorage.getItem(key);
+            if (value == null) {
+                localStorage.setItem(key, "checked");
+            } else {
+                localStorage.removeItem(key);
+            }
+        });
+        
+        // Clears Local Storage and the form when clicking the reset button
+        $("#achievements_form_reset").on("click", function () {
+            if (confirm('Are you sure you want to reset the page?')) {
+                localStorage.clear();
+                $("input").each(function () {
+                    $(this).prop("checked", false);
+                });
+            }
+        });
+
+        //On check and uncheck and on form reset
+        $("input, #achievements_form_reset").on("click", function () {
+
+            //Updates the total count
+            $('#total_achievement_count').html(
+                updateTotalCount()
+            );
+
+            //Updates the section count
+            $("fieldset").each(function () {
+                $('.section-count', $(this)).html(updateFieldsetCount($(this)));
+            });
+
+        });
+
+        // fetch('https://archipelago.gg:62475') //62475
+        // .then(response => {
+        //     if (!response.ok) {
+        //     throw new Error(`HTTP error! status: ${response.status}`);
+        //     }
+        //     return response.text(); 
+        // })
+        // .then(data => {
+        //     console.log('Response data:', data);
+        // })
+        // .catch(error => {
+        //     console.error('Error:', error);
+        // });
+
+        window.addEventListener('load', () => {
+            // Reload tracker every 15 seconds
+            // const url = "https://localhost.archipelago.gg:62475";
+            // const url = "https://mcapi.us/server/status?ip=archipelago.gg&port=62475";
+            const url = "https://archipelago.gg/tracker/8vDebGNZSOmbHre7Voq2Zw";
+            // setInterval(() => {
+                const ajax = new XMLHttpRequest();
+                // ajax.onreadystatechange = () => {
+                //     if (ajax.readyState !== 4) { return; }
+                // };
+                ajax.open('GET', url);
+                ajax.send();
+            // }, 15000)
+        });
+
+    </script>
+
+</body>
+
+</html>
